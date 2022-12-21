@@ -1,21 +1,34 @@
-﻿using System;
-using Entities;
-namespace Entities
+﻿using Microsoft.AspNetCore.Mvc;
+using backend.Models;
+using System.Collections.Generic;
+using backend.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace backend.Services
 {
-	public class JugadorService : Jugador
-	{
-		public JugadorService(string nickname)
-		{
-			this.Nickname = nickname;
-			this.Jugados = 0;
-			this.Victorias = 0;
-			this.Empates = 0;
-			this.Derrotas = 0;
-			this.Elo = 0;
-			this.CantRacha = 0;
-			this.Resaca = false;
-			this.GolesAFavor = 0;
-			this.GolesEnContra = 0;
-		}
-	}
+    public class JugadorServices
+    {
+
+        private MatchamkingContext Context;
+
+        public JugadorServices(MatchamkingContext context)
+        {
+            Context = context;
+        }
+
+        public async Task<List<Jugador>> GetPlayers()
+        {
+            return await Context.Jugadores.ToListAsync();
+        }
+        public async Task<Jugador> GetPlayer(string name)
+        {
+            return await Context.Jugadores.FindAsync(name);
+        }
+/*
+        public async Task<List<Jugador>> PostPlayer(Jugador jugador)
+        {
+            return await Context.Jugadores.AddAsync(jugador);
+        }
+*/
+    }
 }
