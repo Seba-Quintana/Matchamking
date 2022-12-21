@@ -1,12 +1,12 @@
 ﻿using backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using backend.Models;
+using backend.Data.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace backend.Controllers
 {
-	[Route("api/players")]
+    [Route("api/players")]
 	[ApiController]
 	public class JugadorController : ControllerBase
 	{

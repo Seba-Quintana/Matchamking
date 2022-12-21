@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using backend.Models;
 using System.Collections.Generic;
 using backend.Data;
 using Microsoft.EntityFrameworkCore;
+using backend.Data.Models;
 
 namespace backend.Services
 {

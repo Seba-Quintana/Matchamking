@@ -19,7 +19,7 @@ namespace backend.Migrations
                 .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("backend.Models.Equipo", b =>
+            modelBuilder.Entity("backend.Data.Models.Equipo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +36,29 @@ namespace backend.Migrations
                     b.ToTable("Equipos");
                 });
 
-            modelBuilder.Entity("backend.Models.Jugador", b =>
+            modelBuilder.Entity("backend.Data.Models.Equipo_Jugador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("EquipoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquipoId");
+
+                    b.HasIndex("Nickname");
+
+                    b.ToTable("Equipo_Jugadores");
+                });
+
+            modelBuilder.Entity("backend.Data.Models.Jugador", b =>
                 {
                     b.Property<string>("Nickname")
                         .HasColumnType("varchar(255)");
@@ -51,9 +73,6 @@ namespace backend.Migrations
                         .HasColumnType("float");
 
                     b.Property<int>("Empates")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EquipoId")
                         .HasColumnType("int");
 
                     b.Property<int>("GolesAFavor")
@@ -73,12 +92,10 @@ namespace backend.Migrations
 
                     b.HasKey("Nickname");
 
-                    b.HasIndex("EquipoId");
-
                     b.ToTable("Jugadores");
                 });
 
-            modelBuilder.Entity("backend.Models.Partido", b =>
+            modelBuilder.Entity("backend.Data.Models.Partido", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,22 +138,34 @@ namespace backend.Migrations
                     b.ToTable("JugadorPartido");
                 });
 
-            modelBuilder.Entity("backend.Models.Jugador", b =>
+            modelBuilder.Entity("backend.Data.Models.Equipo_Jugador", b =>
                 {
-                    b.HasOne("backend.Models.Equipo", null)
-                        .WithMany("Jugadores")
-                        .HasForeignKey("EquipoId");
+                    b.HasOne("backend.Data.Models.Equipo", "Equipo")
+                        .WithMany("Equipo_Jugadores")
+                        .HasForeignKey("EquipoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Data.Models.Jugador", "Jugador")
+                        .WithMany("Equipo_Jugadores")
+                        .HasForeignKey("Nickname")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Equipo");
+
+                    b.Navigation("Jugador");
                 });
 
-            modelBuilder.Entity("backend.Models.Partido", b =>
+            modelBuilder.Entity("backend.Data.Models.Partido", b =>
                 {
-                    b.HasOne("backend.Models.Equipo", "Ganador")
+                    b.HasOne("backend.Data.Models.Equipo", "Ganador")
                         .WithMany()
                         .HasForeignKey("GanadorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Models.Equipo", "Perdedor")
+                    b.HasOne("backend.Data.Models.Equipo", "Perdedor")
                         .WithMany()
                         .HasForeignKey("PerdedorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -149,22 +178,27 @@ namespace backend.Migrations
 
             modelBuilder.Entity("JugadorPartido", b =>
                 {
-                    b.HasOne("backend.Models.Jugador", null)
+                    b.HasOne("backend.Data.Models.Jugador", null)
                         .WithMany()
                         .HasForeignKey("JugadoresNickname")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Models.Partido", null)
+                    b.HasOne("backend.Data.Models.Partido", null)
                         .WithMany()
                         .HasForeignKey("PartidosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("backend.Models.Equipo", b =>
+            modelBuilder.Entity("backend.Data.Models.Equipo", b =>
                 {
-                    b.Navigation("Jugadores");
+                    b.Navigation("Equipo_Jugadores");
+                });
+
+            modelBuilder.Entity("backend.Data.Models.Jugador", b =>
+                {
+                    b.Navigation("Equipo_Jugadores");
                 });
 #pragma warning restore 612, 618
         }

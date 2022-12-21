@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backend.Migrations
 {
-    public partial class MigracionDos : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,17 +42,11 @@ namespace backend.Migrations
                     CantRacha = table.Column<int>(type: "int", nullable: false),
                     Resaca = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     GolesAFavor = table.Column<int>(type: "int", nullable: false),
-                    GolesEnContra = table.Column<int>(type: "int", nullable: false),
-                    EquipoId = table.Column<int>(type: "int", nullable: true)
+                    GolesEnContra = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Jugadores", x => x.Nickname);
-                    table.ForeignKey(
-                        name: "FK_Jugadores_Equipos_EquipoId",
-                        column: x => x.EquipoId,
-                        principalTable: "Equipos",
-                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -87,6 +81,34 @@ namespace backend.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Equipo_Jugadores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    EquipoId = table.Column<int>(type: "int", nullable: false),
+                    Nickname = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Equipo_Jugadores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Equipo_Jugadores_Equipos_EquipoId",
+                        column: x => x.EquipoId,
+                        principalTable: "Equipos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Equipo_Jugadores_Jugadores_Nickname",
+                        column: x => x.Nickname,
+                        principalTable: "Jugadores",
+                        principalColumn: "Nickname",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "JugadorPartido",
                 columns: table => new
                 {
@@ -113,9 +135,14 @@ namespace backend.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Jugadores_EquipoId",
-                table: "Jugadores",
+                name: "IX_Equipo_Jugadores_EquipoId",
+                table: "Equipo_Jugadores",
                 column: "EquipoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Equipo_Jugadores_Nickname",
+                table: "Equipo_Jugadores",
+                column: "Nickname");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JugadorPartido_PartidosId",
@@ -135,6 +162,9 @@ namespace backend.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Equipo_Jugadores");
+
             migrationBuilder.DropTable(
                 name: "JugadorPartido");
 
