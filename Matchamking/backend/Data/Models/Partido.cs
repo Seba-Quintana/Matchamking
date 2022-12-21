@@ -12,7 +12,6 @@ namespace backend.Data.Models
         public string Cancha { get; set; }
         public Equipo Ganador { get; set; }
         public Equipo Perdedor { get; set; }
-        public List<Jugador> Jugadores { get; set; }
 
         public Partido() { }
 

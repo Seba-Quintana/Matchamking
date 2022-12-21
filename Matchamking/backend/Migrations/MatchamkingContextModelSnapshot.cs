@@ -111,6 +111,9 @@ namespace backend.Migrations
                     b.Property<int>("GanadorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("JugadorNickname")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<int>("PerdedorId")
                         .HasColumnType("int");
 
@@ -118,24 +121,11 @@ namespace backend.Migrations
 
                     b.HasIndex("GanadorId");
 
+                    b.HasIndex("JugadorNickname");
+
                     b.HasIndex("PerdedorId");
 
                     b.ToTable("Partidos");
-                });
-
-            modelBuilder.Entity("JugadorPartido", b =>
-                {
-                    b.Property<string>("JugadoresNickname")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("PartidosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("JugadoresNickname", "PartidosId");
-
-                    b.HasIndex("PartidosId");
-
-                    b.ToTable("JugadorPartido");
                 });
 
             modelBuilder.Entity("backend.Data.Models.Equipo_Jugador", b =>
@@ -165,6 +155,10 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("backend.Data.Models.Jugador", null)
+                        .WithMany("Partidos")
+                        .HasForeignKey("JugadorNickname");
+
                     b.HasOne("backend.Data.Models.Equipo", "Perdedor")
                         .WithMany()
                         .HasForeignKey("PerdedorId")
@@ -176,21 +170,6 @@ namespace backend.Migrations
                     b.Navigation("Perdedor");
                 });
 
-            modelBuilder.Entity("JugadorPartido", b =>
-                {
-                    b.HasOne("backend.Data.Models.Jugador", null)
-                        .WithMany()
-                        .HasForeignKey("JugadoresNickname")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("backend.Data.Models.Partido", null)
-                        .WithMany()
-                        .HasForeignKey("PartidosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("backend.Data.Models.Equipo", b =>
                 {
                     b.Navigation("Equipo_Jugadores");
@@ -199,6 +178,8 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Data.Models.Jugador", b =>
                 {
                     b.Navigation("Equipo_Jugadores");
+
+                    b.Navigation("Partidos");
                 });
 #pragma warning restore 612, 618
         }

@@ -21,7 +21,6 @@ namespace backend.Data
                 .HasOne(j => j.Jugador)
                 .WithMany(ej => ej.Equipo_Jugadores)
                 .HasForeignKey(ji => ji.Nickname);
-
         }
         public DbSet<Jugador> Jugadores { get; set; }
 
