@@ -1,14 +1,15 @@
 using System;
 
-namespace Matchamking.Models
+namespace backend.Models
 {
-	public class Example
+	public class Player
 	{
+		
 		public int Id { get; set; }
 
 		public string Name { get; set; }
 
-		public Example(int id, string name)
+		public Player(int id, string name)
 		{
 			this.Id = id;
 			this.Name = name;
