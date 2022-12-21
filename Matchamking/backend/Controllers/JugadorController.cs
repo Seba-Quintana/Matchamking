@@ -6,45 +6,42 @@ using backend.Models;
 
 namespace backend.Controllers
 {
-	[Route("api/[players]")]
+	[Route("api/players")]
 	[ApiController]
-	public class PlayerController : ControllerBase
+	public class JugadorController : ControllerBase
 	{
-		private PlayerServices playerServices;
+        private readonly ILogger<WeatherForecastController> _logger;
+        private JugadorServices _jugadorServices;
 
-		public PlayerController(PlayerServices playerServices)
+		public JugadorController(JugadorServices _jugadorServices,
+			ILogger<WeatherForecastController> logger)
 		{
-			this.playerServices = playerServices;
-		}
-
-		// GET: api/<ValuesController>
-		[HttpGet]
-		public IEnumerable<string> Get()
-		{
-			return new string[] { "value1", "value2" };
+			this._logger = logger;
+			this._jugadorServices = _jugadorServices;
 		}
 
 		// GET api/<ValuesController>/5
-		[HttpGet]
-		public HashSet<Player> GetPlayers()
+		[HttpGet("")]
+		public async Task<List<Jugador>> GetPlayers()
 		{
-			return playerServices.GetPlayers();
+			return await _jugadorServices.GetPlayers();
 		}
 
 		// GET api/<ValuesController>/5
 		[HttpGet("{name}")]
-		public Player GetPlayer(string name)
+		public Task<Jugador> GetPlayer(string name)
 		{
-			return playerServices.GetPlayer(name);
+			return _jugadorServices.GetPlayer(name);
 		}
 
+		/*
 		// POST api/<ValuesController>
 		[HttpPost("{id}")]
 		public void PostPlayer([FromQuery] string name)
 		{
-			return playerServices.PostPlayer(name);
+			return _jugadorServices.PostPlayer(name);
 		}
-
+		*/
 		/*// DELETE api/<ValuesController>/5
 		[HttpDelete("{id}")]
 		public void Delete(int id)

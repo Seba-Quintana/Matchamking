@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace Entities
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace backend.Models
 {
 	public class Jugador
 	{
-		public string Nickname { get; set; }
+		[Key]
+        public string Nickname { get; set; }
 		public int Jugados { get; set; }
 		public int Victorias { get; set; }
 		public int Empates { get; set; }
@@ -14,6 +19,12 @@ namespace Entities
 		public bool Resaca { get; set; }
 		public int GolesAFavor { get; set; }
 		public int GolesEnContra { get; set; }
-		public Dictionary<string, Partido> Partidos { get; set; }
+		public List<Partido> Partidos { get; set; }
+
+		public Jugador() { }
+		public Jugador(string nickname) 
+		{
+			Nickname = nickname;
+		}
 	}
 }
