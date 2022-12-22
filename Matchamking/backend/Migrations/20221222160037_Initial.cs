@@ -6,26 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backend.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Equipos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Goles = table.Column<int>(type: "int", nullable: false),
-                    Suplentes = table.Column<bool>(type: "tinyint(1)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Equipos", x => x.Id);
-                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -47,6 +32,44 @@ namespace backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Jugadores", x => x.Nickname);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Partidos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Fecha = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Cancha = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Partidos", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Equipos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Goles = table.Column<int>(type: "int", nullable: false),
+                    Suplentes = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    PartidoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Equipos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Equipos_Partidos_PartidoId",
+                        column: x => x.PartidoId,
+                        principalTable: "Partidos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -78,43 +101,6 @@ namespace backend.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "Partidos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Fecha = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Cancha = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    GanadorId = table.Column<int>(type: "int", nullable: false),
-                    PerdedorId = table.Column<int>(type: "int", nullable: false),
-                    JugadorNickname = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Partidos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Partidos_Equipos_GanadorId",
-                        column: x => x.GanadorId,
-                        principalTable: "Equipos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Partidos_Equipos_PerdedorId",
-                        column: x => x.PerdedorId,
-                        principalTable: "Equipos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Partidos_Jugadores_JugadorNickname",
-                        column: x => x.JugadorNickname,
-                        principalTable: "Jugadores",
-                        principalColumn: "Nickname");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Equipo_Jugadores_EquipoId",
                 table: "Equipo_Jugadores",
@@ -126,19 +112,9 @@ namespace backend.Migrations
                 column: "Nickname");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Partidos_GanadorId",
-                table: "Partidos",
-                column: "GanadorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Partidos_JugadorNickname",
-                table: "Partidos",
-                column: "JugadorNickname");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Partidos_PerdedorId",
-                table: "Partidos",
-                column: "PerdedorId");
+                name: "IX_Equipos_PartidoId",
+                table: "Equipos",
+                column: "PartidoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -147,13 +123,13 @@ namespace backend.Migrations
                 name: "Equipo_Jugadores");
 
             migrationBuilder.DropTable(
-                name: "Partidos");
-
-            migrationBuilder.DropTable(
                 name: "Equipos");
 
             migrationBuilder.DropTable(
                 name: "Jugadores");
+
+            migrationBuilder.DropTable(
+                name: "Partidos");
         }
     }
 }

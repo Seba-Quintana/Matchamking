@@ -19,14 +19,14 @@ namespace backend.Data.Models
         public bool Resaca { get; set; }
         public int GolesAFavor { get; set; }
         public int GolesEnContra { get; set; }
-        public List<Partido> Partidos { get; set; }
         public List<Equipo_Jugador> Equipo_Jugadores { get; set; }
 
 
-        public Jugador() { }
-        public Jugador(string nickname)
-        {
-            Nickname = nickname;
-        }
+        //    public Jugador() { }
+        //    public Jugador(string nickname)
+        //    {
+        //        Nickname = nickname;
+        //    }
+        //}
     }
 }
