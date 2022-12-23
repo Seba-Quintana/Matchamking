@@ -11,6 +11,7 @@ namespace backend.Data.Models
         public int Goles { get; set; }
         public bool Suplentes { get; set; }
 
+
         public virtual int PartidoId { get; set; }
         public virtual Partido Partido { get; set; }
 

@@ -15,10 +15,12 @@ namespace backend.Data.Models
         public int Empates { get; set; }
         public int Derrotas { get; set; }
         public float Elo { get; set; }
-        public int CantRacha { get; set; }
+        public int Racha { get; set; }
         public bool Resaca { get; set; }
         public int GolesAFavor { get; set; }
         public int GolesEnContra { get; set; }
+
+        public float Eloboost { get; set; }
         public List<Equipo_Jugador> Equipo_Jugadores { get; set; }
 
 

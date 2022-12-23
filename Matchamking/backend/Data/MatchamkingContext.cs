@@ -21,10 +21,10 @@ namespace backend.Data
                 .HasOne(j => j.Jugador)
                 .WithMany(ej => ej.Equipo_Jugadores)
                 .HasForeignKey(ji => ji.Nickname);
-            modelBuilder.Entity<Equipo>()
-                .HasOne(p => p.Partido)
-                .WithMany(e => e.Equipos)
-                .HasForeignKey(pid => pid.PartidoId);
+            //modelBuilder.Entity<Equipo>()
+            //    .HasOne(p => p.Partido)
+            //    .WithMany(e => e.Equipos)
+            //    .HasForeignKey(pid => pid.PartidoId);
         }
 
         public DbSet<Jugador> Jugadores { get; set; }

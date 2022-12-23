@@ -24,10 +24,11 @@ namespace backend.Migrations
                     Empates = table.Column<int>(type: "int", nullable: false),
                     Derrotas = table.Column<int>(type: "int", nullable: false),
                     Elo = table.Column<float>(type: "float", nullable: false),
-                    CantRacha = table.Column<int>(type: "int", nullable: false),
+                    Racha = table.Column<int>(type: "int", nullable: false),
                     Resaca = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     GolesAFavor = table.Column<int>(type: "int", nullable: false),
-                    GolesEnContra = table.Column<int>(type: "int", nullable: false)
+                    GolesEnContra = table.Column<int>(type: "int", nullable: false),
+                    Eloboost = table.Column<float>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {

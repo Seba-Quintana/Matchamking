@@ -68,13 +68,13 @@ namespace backend.Migrations
                     b.Property<string>("Nickname")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("CantRacha")
-                        .HasColumnType("int");
-
                     b.Property<int>("Derrotas")
                         .HasColumnType("int");
 
                     b.Property<float>("Elo")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Eloboost")
                         .HasColumnType("float");
 
                     b.Property<int>("Empates")
@@ -87,6 +87,9 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Jugados")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Racha")
                         .HasColumnType("int");
 
                     b.Property<bool>("Resaca")

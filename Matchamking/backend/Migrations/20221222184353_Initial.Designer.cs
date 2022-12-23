@@ -11,7 +11,7 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MatchamkingContext))]
-    [Migration("20221222160037_Initial")]
+    [Migration("20221222184353_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,13 +70,13 @@ namespace backend.Migrations
                     b.Property<string>("Nickname")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("CantRacha")
-                        .HasColumnType("int");
-
                     b.Property<int>("Derrotas")
                         .HasColumnType("int");
 
                     b.Property<float>("Elo")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Eloboost")
                         .HasColumnType("float");
 
                     b.Property<int>("Empates")
@@ -89,6 +89,9 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Jugados")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Racha")
                         .HasColumnType("int");
 
                     b.Property<bool>("Resaca")
