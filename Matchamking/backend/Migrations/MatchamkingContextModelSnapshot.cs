@@ -28,10 +28,15 @@ namespace backend.Migrations
                     b.Property<int>("Goles")
                         .HasColumnType("int");
 
+                    b.Property<int>("PartidoId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Suplentes")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PartidoId");
 
                     b.ToTable("Equipos");
                 });
@@ -63,13 +68,13 @@ namespace backend.Migrations
                     b.Property<string>("Nickname")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("CantRacha")
-                        .HasColumnType("int");
-
                     b.Property<int>("Derrotas")
                         .HasColumnType("int");
 
                     b.Property<float>("Elo")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Eloboost")
                         .HasColumnType("float");
 
                     b.Property<int>("Empates")
@@ -82,6 +87,9 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Jugados")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Racha")
                         .HasColumnType("int");
 
                     b.Property<bool>("Resaca")
@@ -108,24 +116,20 @@ namespace backend.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("GanadorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("JugadorNickname")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("PerdedorId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("GanadorId");
-
-                    b.HasIndex("JugadorNickname");
-
-                    b.HasIndex("PerdedorId");
-
                     b.ToTable("Partidos");
+                });
+
+            modelBuilder.Entity("backend.Data.Models.Equipo", b =>
+                {
+                    b.HasOne("backend.Data.Models.Partido", "Partido")
+                        .WithMany("Equipos")
+                        .HasForeignKey("PartidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Partido");
                 });
 
             modelBuilder.Entity("backend.Data.Models.Equipo_Jugador", b =>
@@ -147,29 +151,6 @@ namespace backend.Migrations
                     b.Navigation("Jugador");
                 });
 
-            modelBuilder.Entity("backend.Data.Models.Partido", b =>
-                {
-                    b.HasOne("backend.Data.Models.Equipo", "Ganador")
-                        .WithMany()
-                        .HasForeignKey("GanadorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("backend.Data.Models.Jugador", null)
-                        .WithMany("Partidos")
-                        .HasForeignKey("JugadorNickname");
-
-                    b.HasOne("backend.Data.Models.Equipo", "Perdedor")
-                        .WithMany()
-                        .HasForeignKey("PerdedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ganador");
-
-                    b.Navigation("Perdedor");
-                });
-
             modelBuilder.Entity("backend.Data.Models.Equipo", b =>
                 {
                     b.Navigation("Equipo_Jugadores");
@@ -178,8 +159,11 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Data.Models.Jugador", b =>
                 {
                     b.Navigation("Equipo_Jugadores");
+                });
 
-                    b.Navigation("Partidos");
+            modelBuilder.Entity("backend.Data.Models.Partido", b =>
+                {
+                    b.Navigation("Equipos");
                 });
 #pragma warning restore 612, 618
         }
