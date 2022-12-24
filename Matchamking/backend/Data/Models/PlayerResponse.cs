@@ -16,6 +16,7 @@ namespace backend.Data.Models
 		public PlayerResponse()
 		{
 		}
+		
 		public PlayerResponse(string stsCod, string stsMsg, List<T> bodyResponseList)
 		{
 			this.stsCod = stsCod;
