@@ -5,13 +5,9 @@ namespace backend.Data.Models
 {
 	public class PlayerResponse<T>
 	{
-		private string stsCod;
-		private string stsMsg;
-		private List<T> bodyResponseList;
-
-		public string StsCod { get { return stsCod; } private set { stsCod = value; } }
-		public string StsMsg { get { return stsMsg; } private set { stsCod = value; } }
-		public string BodyResponseList { get; set; }
+		public string StsMsg { get; private set; }
+		public string StsCod { get; private set; }
+		public List<T> BodyResponseList { get; set; }
 
 		public PlayerResponse()
 		{
@@ -19,9 +15,9 @@ namespace backend.Data.Models
 		
 		public PlayerResponse(string stsCod, string stsMsg, List<T> bodyResponseList)
 		{
-			this.stsCod = stsCod;
-			this.stsMsg = stsMsg;
-			this.bodyResponseList = bodyResponseList;
+			this.StsCod = stsCod;
+			this.StsMsg = stsMsg;
+			this.BodyResponseList = bodyResponseList;
 		}
 	}
 }
