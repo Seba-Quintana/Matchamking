@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace backend.Data.Models
 {
-	public class PlayerResponse<T>
+	public class JugadorResponse<T>
 	{
-		public string StsMsg { get; set; }
 		public string StsCod { get; set; }
+		public string StsMsg { get; set; }
 		public List<T> BodyResponseList { get; set; }
 
-		public PlayerResponse()
+		public JugadorResponse()
 		{
 		}
 		
-		public PlayerResponse(string stsCod, string stsMsg, List<T> bodyResponseList)
+		public JugadorResponse(string stsCod, string stsMsg, List<T> bodyResponseList)
 		{
 			this.StsCod = stsCod;
 			this.StsMsg = stsMsg;
