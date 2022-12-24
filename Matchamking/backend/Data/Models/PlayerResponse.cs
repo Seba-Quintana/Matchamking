@@ -5,8 +5,8 @@ namespace backend.Data.Models
 {
 	public class PlayerResponse<T>
 	{
-		public string StsMsg { get; private set; }
-		public string StsCod { get; private set; }
+		public string StsMsg { get; set; }
+		public string StsCod { get; set; }
 		public List<T> BodyResponseList { get; set; }
 
 		public PlayerResponse()
