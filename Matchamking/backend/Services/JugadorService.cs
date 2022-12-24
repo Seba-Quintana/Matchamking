@@ -16,13 +16,52 @@ namespace backend.Services
             Context = context;
         }
 
-        public async Task<List<Jugador>> GetPlayers()
+        public async Task<JugadorResponse<Jugador>> GetPlayers()
         {
-            return await Context.Jugadores.ToListAsync();
+	        var res = new JugadorResponse<Jugador>();
+	        try
+	        {
+		        var a = await Context.Jugadores.ToListAsync() ?? throw new InvalidOperationException();
+		        foreach (var jugador in a)
+		        {
+			        res.BodyResponseList.Add(jugador);
+		        }
+
+		        res.StsCod = "200";
+		        res.StsMsg = "Jugador obtenido correctamente";
+	        }
+	        catch (InvalidOperationException e)
+	        {
+		        res.StsCod = "500";
+		        res.StsMsg = "Jugador no existente";
+			}
+	        catch (Exception e)
+	        {
+		        res.StsCod = "500";
+		        res.StsMsg = "algo salio mal";
+	        }
+			return res;
         }
-        public async Task<Jugador> GetPlayer(string name)
+        public async Task<JugadorResponse<Jugador>> GetPlayer(string name)
         {
-            return await Context.Jugadores.FindAsync(name);
+	        var res = new JugadorResponse<Jugador>();
+	        try
+	        {
+		        res.BodyResponseList.Add(await Context.Jugadores.FindAsync(name) ?? throw new InvalidOperationException());
+		        res.StsCod = "200";
+		        res.StsMsg = "Jugador obtenido correctamente";
+			}
+	        catch (InvalidOperationException e)
+	        {
+				res.StsCod = "500";
+				res.StsMsg = "Jugador no existente";
+			}
+	        catch (Exception e)
+	        {
+		        res.StsCod = "500";
+		        res.StsMsg = "algo salio mal";
+	        }
+			return res;
         }
 /*
         public async Task<List<Jugador>> PostPlayer(Jugador jugador)

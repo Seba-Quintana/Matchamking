@@ -22,14 +22,14 @@ namespace backend.Controllers
 
 		// GET api/<ValuesController>/5
 		[HttpGet("")]
-		public async Task<List<Jugador>> GetPlayers()
+		public async Task<JugadorResponse<Jugador>> GetPlayers()
 		{
 			return await _jugadorServices.GetPlayers();
 		}
 
 		// GET api/<ValuesController>/5
 		[HttpGet("{name}")]
-		public Task<Jugador> GetPlayer(string name)
+		public Task<JugadorResponse<Jugador>> GetPlayer(string name)
 		{
 			return _jugadorServices.GetPlayer(name);
 		}
