@@ -6,7 +6,13 @@ using backend.Data.Models;
 
 namespace backend.Services
 {
-    public class JugadorServices
+	public interface IJugadorServices
+	{
+		public Task<JugadorResponse<Jugador>> GetPlayers();
+		public Task<JugadorResponse<Jugador>> GetPlayer(string name);
+	}
+
+	public class JugadorServices : IJugadorServices
     {
 
         private MatchamkingContext Context;
@@ -21,11 +27,8 @@ namespace backend.Services
 	        var res = new JugadorResponse<Jugador>();
 	        try
 	        {
-		        var a = await Context.Jugadores.ToListAsync() ?? throw new InvalidOperationException();
-		        foreach (var jugador in a)
-		        {
-			        res.BodyResponseList.Add(jugador);
-		        }
+		        var players = await Context.Jugadores.ToListAsync() ?? throw new InvalidOperationException();
+		        res.BodyResponseList = players;
 
 		        res.StsCod = "200";
 		        res.StsMsg = "Jugador obtenido correctamente";

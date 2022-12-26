@@ -11,9 +11,9 @@ namespace backend.Controllers
 	public class JugadorController : ControllerBase
 	{
         private readonly ILogger<WeatherForecastController> _logger;
-        private JugadorServices _jugadorServices;
+        private IJugadorServices _jugadorServices;
 
-		public JugadorController(JugadorServices _jugadorServices,
+		public JugadorController(IJugadorServices _jugadorServices,
 			ILogger<WeatherForecastController> logger)
 		{
 			this._logger = logger;
