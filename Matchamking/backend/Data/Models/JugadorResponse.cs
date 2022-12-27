@@ -11,6 +11,7 @@ namespace backend.Data.Models
 
 		public JugadorResponse()
 		{
+			BodyResponseList = new List<T>();
 		}
 		
 		public JugadorResponse(string stsCod, string stsMsg, List<T> bodyResponseList)

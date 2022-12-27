@@ -19,16 +19,27 @@ namespace backend.Data.Models
         public bool Resaca { get; set; }
         public int GolesAFavor { get; set; }
         public int GolesEnContra { get; set; }
-
         public float Eloboost { get; set; }
         public List<Equipo_Jugador> Equipo_Jugadores { get; set; }
 
+        public Jugador()
+        {
+        }
+        public Jugador(string nickname)
+        {
+            Nickname = nickname;
+            Jugados = 0;
+            Victorias = 0;
+            Empates = 0;
+            Derrotas = 0;
+            Elo = 0;
+            Racha = 0;
+            Resaca = false;
+            GolesAFavor = 0;
+            GolesEnContra = 0;
+            Eloboost = 0;
+            Equipo_Jugadores = new List<Equipo_Jugador>();
+        }
 
-        //    public Jugador() { }
-        //    public Jugador(string nickname)
-        //    {
-        //        Nickname = nickname;
-        //    }
-        //}
     }
 }
