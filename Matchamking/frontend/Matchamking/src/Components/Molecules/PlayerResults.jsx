@@ -17,8 +17,7 @@ const StyledResultsContainer = styled.div`
     max-height: 400px;
 `
 
-const PlayerSelect = () => {
-    const [players, setPlayers] = useState([])
+const PlayerResults = ({remainingPlayers, setSelectedPlayers}) => {
 
     useEffect(() => {
         console.log(players)
@@ -28,18 +27,17 @@ const PlayerSelect = () => {
         <StyledResultsContainer>
             <Player winrate="50%" playername="Diekkan"
             players={players} setPlayers={setPlayers}></Player>
-            <Player winrate="50%" playername="Diekkan"
-            players={players} setPlayers={setPlayers}></Player>
-            <Player winrate="50%" playername="Diekkan"
-            players={players} setPlayers={setPlayers}></Player>
-            <Player winrate="50%" playername="Diekkan"
-            players={players} setPlayers={setPlayers}></Player>
-             <Player winrate="50%" playername="Diekkan"
-            players={players} setPlayers={setPlayers}></Player>
-            
+        {
+            remainingPlayers.map(item => 
+                <Player winrate={item.winrate}
+                    playername={item.playername}
+                    players={remainingPlayers}
+                    setPlayers={setSelectedPlayers}
+                ></Player>
+        )}
         </StyledResultsContainer>
     </>
   )
 }
 
-export default PlayerSelect
+export default PlayerResults
