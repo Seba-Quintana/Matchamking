@@ -8,8 +8,9 @@ const StyleHeaderText = styled.div`
     color: white;
     justify-content: left;
     align-self: flex-start;
-    padding-left: 10%;
+    padding-left: 1rem;
     display: flex;
+    margin-top: 1.5rem
 }
 @media (min-width: 800px){
     font-family: 'Inter', sans-serif;

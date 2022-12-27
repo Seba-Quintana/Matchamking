@@ -3,39 +3,35 @@ import ResultsContainer from '../Atoms/ResultsContainer'
 import Player from '../Atoms/Player'
 import styled from 'styled-components'
 
-const StyledResultsContainer = styled.div`
-    background-color: white;
-    width: 90%;
-    height: 70%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 1rem;
-    border-radius: 5px;
-    max-width: 500px;
-    overflow: scroll;
-    max-height: 400px;
-`
 
-const PlayerResults = ({remainingPlayers, setSelectedPlayers}) => {
+const PlayerResults = (
+    {selectedPlayers, setSelectedPlayers,
+    remainingPlayers, setRemainingPlayers}
+) => {
+
+    const [ playerClicked, setPlayerClicked] = useState();
 
     useEffect(() => {
-        console.log(players)
-    }, [players.length])
+        let newArr = remainingPlayers.filter(el => el.playername !== playerClicked.playername);
+        let newSelectedPlayers = selectedPlayers;
+        setRemainingPlayers(newArr);
+        if (playerClicked !== undefined)
+            newSelectedPlayers.push(playerClicked)
+        console.log(playerClicked)
+      }, [playerClicked])
+
+
   return (
     <>
-        <StyledResultsContainer>
-            <Player winrate="50%" playername="Diekkan"
-            players={players} setPlayers={setPlayers}></Player>
         {
             remainingPlayers.map(item => 
                 <Player winrate={item.winrate}
                     playername={item.playername}
                     players={remainingPlayers}
-                    setPlayers={setSelectedPlayers}
+                    setPlayerClicked={setPlayerClicked}
+                    key={item.playername}
                 ></Player>
         )}
-        </StyledResultsContainer>
     </>
   )
 }

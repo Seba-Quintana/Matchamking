@@ -1,15 +1,33 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import SelectedPlayer from '../Atoms/SelectedPlayer'
 
-const PlayersSelected = (selectedPlayers, setRemainingPlayers) => {
+const PlayersSelected = (
+  {selectedPlayers, setSelectedPlayers,
+   remainingPlayers, setRemainingPlayers}
+  ) => {
+
+    const [ playerClicked, setPlayerClicked] = useState();
+
+
+    useEffect(() => {
+      let newArr = selectedPlayers.filter(el => el.playername !== playerClicked.playername);
+      let newRemainingPlayers = remainingPlayers;
+      setSelectedPlayers(newArr);
+      if (playerClicked !== undefined)
+          newRemainingPlayers.push(playerClicked)
+    }, [playerClicked])
+
   return (
     <>
         {
             selectedPlayers.map(item => 
-                <Player winrate={item.winrate}
+                <SelectedPlayer winrate={item.winrate}
                     playername={item.playername}
                     players={selectedPlayers}
                     setPlayers={setRemainingPlayers}
-                ></Player>)
+                    setPlayerClicked={setPlayerClicked}
+                    key={item.playername}
+                ></SelectedPlayer>)
         }
     </>
   )

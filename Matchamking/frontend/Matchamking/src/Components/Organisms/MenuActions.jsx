@@ -19,10 +19,10 @@ const StyledClickBoxes = styled.div`
 const MenuActions = () => {
   return (
     <StyledClickBoxes>
-            <ClickBox text="Agregar nuevo jugador" redirection='/add_player'></ClickBox>
+            <ClickBox text="Agregar nuevo jugador" redirection='/addplayer'></ClickBox>
             <ClickBox text="Nuevo matchmaking" redirection='/matchmaking'></ClickBox>
-            <ClickBox text="Historial de partidos" redirection='/match_history'></ClickBox>
-            <ClickBox text="Tabla de clasificación" redirection='/ranking'></ClickBox>
+            <ClickBox text="Historial de partidos" redirection='/history'></ClickBox>
+            <ClickBox text="Tabla de clasificación" redirection='/leaderboard'></ClickBox>
             <ClickBox text="Administración" redirection='/admin'></ClickBox>
     </StyledClickBoxes>
   )

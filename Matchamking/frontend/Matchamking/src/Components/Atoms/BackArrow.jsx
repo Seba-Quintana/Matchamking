@@ -7,12 +7,13 @@ import { useNavigate } from 'react-router-dom'
 
 const StyledBackArrow = styled.div`
   position: absolute;
-  left: 10%;
-  top: 5%;
-  font-size: 30px;
-  width: 60px;
-  height: 40px;
-  color: white;
+  align-self: flex-start;
+  left: 1rem;
+  top: 1rem;
+  width: 35px;
+  height: auto;
+  color: #ffffff;
+  cursor: pointer;
 `
 
 const BackArrow = ({navigate}) => {

@@ -6,7 +6,7 @@ const StyledInput = styled.input`
     all: unset;
     text-align: left;
     align-self: center;
-    margin-left: 10%;
+    margin-left: 1rem;
 `
 const StyledSearchBox = styled(StyledBox)`
     margin-top: 1rem;

@@ -1,7 +1,7 @@
 import React from 'react'
 import BackArrow from '../Components/Atoms/BackArrow'
 
-const Admin = () => {
+const Leaderboard = () => {
   return (
     <>
           <BackArrow navigate={'/'}></BackArrow>
@@ -9,4 +9,4 @@ const Admin = () => {
   )
 }
 
-export default Admin
+export default Leaderboard
