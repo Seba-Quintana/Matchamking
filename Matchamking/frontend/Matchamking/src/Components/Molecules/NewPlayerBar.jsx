@@ -7,7 +7,7 @@ const NewPlayerBar = () => {
   return (
     <>
         <HeaderText text='Crear un nuevo jugador'></HeaderText>
-        <SearchBox text='Insertar un nickname'></SearchBox>
+        <SearchBox text='Introducir un nombre'></SearchBox>
     </>
   )
 }

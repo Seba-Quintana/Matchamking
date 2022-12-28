@@ -12,7 +12,7 @@ const StyledResultsContainer = styled.div`
   border-radius: 5px;
   max-width: 500px;
   overflow-y: auto;
-  max-height: 400px;
+  max-height: 350px;
 `
 const ResultsContainer = () => {
   return (

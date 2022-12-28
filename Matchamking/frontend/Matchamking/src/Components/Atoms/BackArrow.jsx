@@ -9,7 +9,7 @@ const StyledBackArrow = styled.div`
   position: absolute;
   align-self: flex-start;
   left: 1rem;
-  top: 1rem;
+  top: 0.5rem;
   width: 35px;
   height: auto;
   color: #ffffff;

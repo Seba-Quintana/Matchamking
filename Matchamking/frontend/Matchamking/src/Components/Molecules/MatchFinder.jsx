@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import StyledBox from '../Atoms/BoxStyle'
 
 const DatePick = styled.input`
-    all: unset;
     margin-right: 1rem;
+    width: 40%;
 `
 const StyledSearchBox = styled(StyledBox)`
     margin-top: 1rem;
