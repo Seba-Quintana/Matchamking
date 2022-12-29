@@ -15,13 +15,14 @@ namespace backend.Data.Models
         public virtual int PartidoId { get; set; }
         public virtual Partido Partido { get; set; }
 
-        public List<Equipo_Jugador> Equipo_Jugadores { get; set; }
+        public Equipo EquipoA { get; set; }
+        public Equipo EquipoB { get; set; }
 
-        //public Equipo() { }
-        //public Equipo(int goles, bool suplentes, List<Jugador> jugadores)
-        //{
-        //    Goles = goles;
-        //    Suplentes = suplentes;
-        //}
-    }
+		//public Equipo() { }
+		//public Equipo(int goles, bool suplentes, List<Jugador> jugadores)
+		//{
+		//    Goles = goles;
+		//    Suplentes = suplentes;
+		//}
+	}
 }
