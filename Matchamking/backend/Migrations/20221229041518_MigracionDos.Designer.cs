@@ -11,8 +11,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MatchamkingContext))]
-    [Migration("20221222184353_Initial")]
-    partial class Initial
+    [Migration("20221229041518_MigracionDos")]
+    partial class MigracionDos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,6 +98,9 @@ namespace backend.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Victorias")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WinRate")
                         .HasColumnType("int");
 
                     b.HasKey("Nickname");

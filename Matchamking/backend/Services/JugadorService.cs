@@ -13,7 +13,7 @@ namespace backend.Services
 		public Task<JugadorResponse<Jugador>> PostPlayer(string name);
 		public Task<JugadorResponse<Jugador>> DeletePlayer(string name);
 		public Task<JugadorResponse<Jugador>> PutEloboost(string name, float eloboost);
-		public Task<JugadorResponse<Jugador>> PutPlayer(Jugador jugador);
+		public Task<JugadorResponse<Jugador>> PutWinRate(string name, int winRate);
 	}
 
 	public class JugadorServices : IJugadorServices
@@ -139,16 +139,16 @@ namespace backend.Services
 	        return res;
         }
 
-        public async Task<JugadorResponse<Jugador>> PutPlayer(Jugador jugador)
+        public async Task<JugadorResponse<Jugador>> PutWinRate(string name, int winRate)
         {
 	        var res = new JugadorResponse<Jugador>();
 	        try
 	        {
-		        var jugadordb = await Context.Jugadores.FindAsync(jugador.Nickname)
+		        var jugador = await Context.Jugadores.FindAsync(name)
 		                      ?? throw new InvalidOperationException();
-		        jugadordb = jugador;
+		        jugador.WinRate = winRate;
 		        res.StsCod = "200";
-		        res.StsMsg = "Jugador eloboosteado correctamente xdxdxd";
+		        res.StsMsg = "Jugador modificado correctamente";
 		        await Context.SaveChangesAsync();
 	        }
 	        catch (InvalidOperationException e)

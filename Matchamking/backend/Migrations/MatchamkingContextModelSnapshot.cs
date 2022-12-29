@@ -98,6 +98,9 @@ namespace backend.Migrations
                     b.Property<int>("Victorias")
                         .HasColumnType("int");
 
+                    b.Property<int>("WinRate")
+                        .HasColumnType("int");
+
                     b.HasKey("Nickname");
 
                     b.ToTable("Jugadores");
