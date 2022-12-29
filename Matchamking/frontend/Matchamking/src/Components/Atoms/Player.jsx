@@ -31,17 +31,17 @@ const Add = styled.div`
 `
 
 const Player = (
-    {winrate, playername, setPlayerClicked}
+    {victorias, nickname, setPlayerClicked}
     ) => {
 
     return (
         <PlayerBox>
-            <Winrate>{winrate}</Winrate>
-            <PlayerName>{playername}</PlayerName>
+            <Winrate>{victorias}</Winrate>
+            <PlayerName>{nickname}</PlayerName>
             <Add onClick={() => {
                  return setPlayerClicked({
-                    playername: playername,
-                    winrate: winrate
+                    nickname: nickname,
+                    victorias: victorias
                 })
                 }
             }>Añadir</Add>

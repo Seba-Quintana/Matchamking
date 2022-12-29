@@ -10,7 +10,7 @@ const PlayersSelected = (
 
 
     useEffect(() => {
-      let newArr = selectedPlayers.filter(el => el.playername !== playerClicked.playername);
+      let newArr = selectedPlayers.filter(el => el.nickname !== playerClicked.nickname);
       let newRemainingPlayers = remainingPlayers;
       setSelectedPlayers(newArr);
       if (playerClicked !== undefined)
@@ -22,11 +22,11 @@ const PlayersSelected = (
         {
             selectedPlayers.map(item => 
                 <SelectedPlayer winrate={item.winrate}
-                    playername={item.playername}
+                    nickname={item.nickname}
                     players={selectedPlayers}
                     setPlayers={setRemainingPlayers}
                     setPlayerClicked={setPlayerClicked}
-                    key={item.playername}
+                    key={item.nickname}
                 ></SelectedPlayer>)
         }
     </>

@@ -32,15 +32,15 @@ const Remove = styled.div`
 `
 
 const SelectedPlayer = (
-  {winrate, playername, setPlayerClicked}
+  {winrate, nickname, setPlayerClicked}
 ) => {
   return (
     <PlayerBox>
       <Winrate>{winrate}</Winrate>
-      <PlayerName>{playername}</PlayerName>
+      <PlayerName>{nickname}</PlayerName>
       <Remove onClick={() => {
          return setPlayerClicked({
-            playername: playername,
+            nickname: nickname,
             winrate: winrate
         })
         }

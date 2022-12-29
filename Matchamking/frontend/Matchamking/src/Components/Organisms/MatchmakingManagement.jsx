@@ -35,119 +35,77 @@ const StyledBox = styled.div`
 
 const MatchmakingManagement = () => {
 
-  const [players, setPlayers] = useState([])
-  const [remainingPlayers, setRemainingPlayers] = useState([])
-  const [selectedPlayers, setSelectedPlayers] = useState([])
-  const [searchValue, setSearchValue] = useState("")
-  const [searchFlag, setSearchFlag] = useState(0)
-  const playersList = [
-    {
-        position: 1,
-        playername: 'Diekkan',
-        winrate: '100%',
-        played: 12,
-        state: 0,
-    },
-    {
-        position: 1,
-        playername: 'Emiliardo',
-        winrate: '100%',
-        played: 12,
-        state: 0,
-    },
-    {
-        position: 2,
-        playername: 'Goku',
-        winrate: '80%',
-        played: 12,
-        state: -1,
-    },
-    {
-        position: 3,
-        playername: 'Seba',
-        winrate: '70%',
-        played: 12,
-        state: 3,
-    },
-    {
-        position: 4,
-        playername: 'Nitram',
-        winrate: '70%',
-        played: 12,
-        state: 3,
-    },
-    {
-        position: 5,
-        playername: 'Juanma',
-        winrate: '70%',
-        played: 12,
-        state: 3,
-    },
-    {
-        position: 6,
-        playername: 'Nachoto',
-        winrate: '70%',
-        played: 12,
-        state: 3,
-    },
-]
+    const [players, setPlayers] = useState([])
+    const [remainingPlayers, setRemainingPlayers] = useState([])
+    const [selectedPlayers, setSelectedPlayers] = useState([])
+    const [searchValue, setSearchValue] = useState("")
+    const [searchFlag, setSearchFlag] = useState(0)
 
-  useEffect(() => {
-  setRemainingPlayers(playersList);
-  setPlayers(playersList);
-  }, [])
 
-  useEffect(() => {
+    const getPlayers = () => { 
+        fetch('http://localhost:5071/api/players', {
+             method: 'GET',
+         })
+             .then((res) => res.json())
+             .then((data) => setPlayers(data))
+             .catch((err) => console.log(err));
+     };
 
-    let newArr;
+    useEffect(() => {
+        getPlayers();
+    }, [])
 
-    if (searchValue.length == 0)
-    {
-      newArr = playersList.filter((player) => 
-      !selectedPlayers.some(selectedPlayer => selectedPlayer.playername === player.playername))
-      setRemainingPlayers(newArr)
-      console.log(newArr)
-      setSearchFlag(0)
-    }
-    else
-    {
-      newArr = remainingPlayers.filter((player) => player.playername.includes(searchValue))
-      setRemainingPlayers(newArr)
-      if (newArr.length === 0)
-      {
-        setSearchFlag(-1)
-      }
-      console.log(newArr.lenght)
-      console.log(searchFlag)
-    }
+    useEffect(() => {
+            setRemainingPlayers(players.bodyResponseList)
+    }, [players])
+
+    useEffect(() => {
+
+        let newArr;
+
+        if (searchValue.length == 0) {
+            newArr = players.filter((player) =>
+                !selectedPlayers.some(selectedPlayer => selectedPlayer.nickname === player.nickname))
+            setRemainingPlayers(newArr)
+            console.log(newArr)
+            setSearchFlag(0)
+        }
+        else {
+            newArr = remainingPlayers.filter((player) => player.nickname.includes(searchValue))
+            setRemainingPlayers(newArr)
+            if (newArr.length === 0) {
+                setSearchFlag(-1)
+            }
+            console.log(newArr.lenght)
+            console.log(searchFlag)
+        }
     }, [searchValue])
 
-  return (
-    <>
-        <PlayerSearchBar setSearchValue={setSearchValue}></PlayerSearchBar>
-        <StyledResultsContainer>
-          <PlayersSelected 
-            selectedPlayers={selectedPlayers}
-            setSelectedPlayers={setSelectedPlayers}
-            remainingPlayers={remainingPlayers}
-            setRemainingPlayers={setRemainingPlayers}
-          ></PlayersSelected>
-          {
-            searchFlag === -1 ?
-              <StyledBox>
-                No hay resultados
-              </StyledBox>
-            :
-            <PlayerResults
-            selectedPlayers={selectedPlayers}
-            setSelectedPlayers={setSelectedPlayers}
-            remainingPlayers={remainingPlayers}
-            setRemainingPlayers={setRemainingPlayers}
-          ></PlayerResults>
-          }
-        </StyledResultsContainer>
-    </>
+    return (
+        <>
+            <PlayerSearchBar setSearchValue={setSearchValue}></PlayerSearchBar>
+            <StyledResultsContainer>
+                <PlayersSelected
+                    selectedPlayers={selectedPlayers}
+                    setSelectedPlayers={setSelectedPlayers}
+                    remainingPlayers={remainingPlayers}
+                    setRemainingPlayers={setRemainingPlayers}
+                ></PlayersSelected>
+                {
+                    searchFlag === -1 ?
+                        <StyledBox>
+                            No hay resultados
+                        </StyledBox>
+                        :
+                        <PlayerResults
+                            selectedPlayers={selectedPlayers}
+                            setSelectedPlayers={setSelectedPlayers}
+                            remainingPlayers={remainingPlayers}
+                            setRemainingPlayers={setRemainingPlayers}
+                        ></PlayerResults>
+                }
+            </StyledResultsContainer>
+        </>
     )
 }
-
 export default MatchmakingManagement
