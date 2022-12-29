@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backend.Migrations
 {
-    public partial class Initial : Migration
+    public partial class MigracionDos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,7 @@ namespace backend.Migrations
                     Nickname = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Jugados = table.Column<int>(type: "int", nullable: false),
+                    WinRate = table.Column<int>(type: "int", nullable: false),
                     Victorias = table.Column<int>(type: "int", nullable: false),
                     Empates = table.Column<int>(type: "int", nullable: false),
                     Derrotas = table.Column<int>(type: "int", nullable: false),
