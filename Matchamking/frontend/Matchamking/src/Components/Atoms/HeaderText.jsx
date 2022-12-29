@@ -12,15 +12,20 @@ const StyleHeaderText = styled.div`
     display: flex;
     margin-top: 1.5rem
 }
-@media (min-width: 800px){
+@media (min-width: 500px){
     font-family: 'Inter', sans-serif;
     font-size: 20px;
     color: white;
     align-self: center;
     display: flex;
 }
-
-
+@media (max-height: 580px){
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-self: center;
+}
 `
 const HeaderText = ({text}) => {
   return (

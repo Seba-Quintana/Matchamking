@@ -56,7 +56,7 @@ const MatchmakingManagement = () => {
     }, [])
 
     useEffect(() => {
-            setRemainingPlayers(players.bodyResponseList)
+        setRemainingPlayers(players.bodyResponseList)
     }, [players])
 
     useEffect(() => {
