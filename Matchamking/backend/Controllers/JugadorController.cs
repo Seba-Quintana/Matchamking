@@ -54,5 +54,11 @@ namespace backend.Controllers
 		{
 			return _jugadorServices.PutEloboost(name, eloboost);
 		}
+
+		[HttpPut("playerDev")]
+		public Task<JugadorResponse<Jugador>> PutPlayer([FromBody] Jugador jugador)
+		{
+			return _jugadorServices.PutPlayer(jugador);
+		}
 	}
 }

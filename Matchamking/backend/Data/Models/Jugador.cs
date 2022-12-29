@@ -11,7 +11,8 @@ namespace backend.Data.Models
         [Key]
         public string Nickname { get; set; }
         public int Jugados { get; set; }
-        public int Victorias { get; set; }
+        public int WinRate { get; set; }
+		public int Victorias { get; set; }
         public int Empates { get; set; }
         public int Derrotas { get; set; }
         public float Elo { get; set; }
@@ -29,7 +30,8 @@ namespace backend.Data.Models
         {
             Nickname = nickname;
             Jugados = 0;
-            Victorias = 0;
+            WinRate = 0;
+			Victorias = 0;
             Empates = 0;
             Derrotas = 0;
             Elo = 0;
