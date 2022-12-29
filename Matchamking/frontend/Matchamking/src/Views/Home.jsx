@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import HeaderText from '../Components/Atoms/HeaderText'
 import MenuActions from '../Components/Organisms/MenuActions'
+import TitleHeader from '../Components/Molecules/TitleHeader'
 
 
 
 const Home = () => {
   return (
     <>
-        <HeaderText text="MatchamKing"></HeaderText>
+        <TitleHeader></TitleHeader>
         <MenuActions></MenuActions>
     </>
 

@@ -8,18 +8,17 @@ const StyledInput = styled.input`
     align-self: center;
     margin-left: 1rem;
 `
-const StyledSearchBox = styled(StyledBox)`
+const StyledUserLoginForm = styled(StyledBox)`
     margin-top: 1rem;
     justify-content: flex-start;
 `
-const SearchBox = ({text, setSearchValue}) => {
+const UserLoginForm = ({text, type}) => {
   return (
-    <StyledSearchBox>
-        <StyledInput type='text' placeholder={text} onChange={ 
-          (ev) => { setSearchValue(ev.target.value)}}
+    <StyledUserLoginForm>
+        <StyledInput type={type} placeholder={text}
         ></StyledInput>
-    </StyledSearchBox>
+    </StyledUserLoginForm>
   )
 }
 
-export default SearchBox
+export default UserLoginForm

@@ -5,6 +5,21 @@ using backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var AllowSpecificOrigins = "_allowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowSpecificOrigins,
+                  policy =>
+                  {
+                      policy.WithOrigins("http://localhost:5173",
+                                        "http://localhost")
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod()
+                                        .AllowCredentials();
+                  });
+});
+
 // Add services to the container.
 
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
@@ -34,6 +49,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(AllowSpecificOrigins);
 app.UseAuthorization();
 
 app.MapControllers();

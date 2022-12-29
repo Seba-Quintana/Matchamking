@@ -8,6 +8,7 @@ const StyledLink = styled(Link)`
 `
 const StyledClickBox = styled(StyledBox)`
   margin-top: 2.5rem;
+  cursor: pointer;
 `
 
 const ClickBox = ({text, redirection}) => {

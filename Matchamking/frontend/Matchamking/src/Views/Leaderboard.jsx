@@ -1,14 +1,14 @@
 import React from 'react'
 import BackArrow from '../Components/Atoms/BackArrow'
-import AdminLogin from '../Components/Organisms/AdminLogin'
+import Board from '../Components/Organisms/Board'
 
-const Admin = () => {
+const Leaderboard = () => {
   return (
     <>
           <BackArrow navigate={'/'}></BackArrow>
-          <AdminLogin></AdminLogin>
+          <Board></Board>
     </>
   )
 }
 
-export default Admin
+export default Leaderboard
