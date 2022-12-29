@@ -56,7 +56,7 @@ namespace backend.Controllers
 		}
 
 		[HttpPut("winRate")]
-		public Task<JugadorResponse<Jugador>> PutWinRate([FromQuery] string name, int winRate)
+		public Task<JugadorResponse<Jugador>> PutWinRate([FromQuery] string name, [FromQuery] int winRate)
 		{
 			return _jugadorServices.PutWinRate(name, winRate);
 		}
