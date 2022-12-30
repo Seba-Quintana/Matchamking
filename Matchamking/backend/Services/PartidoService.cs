@@ -6,40 +6,40 @@ using backend.Data.Models;
 
 namespace backend.Services
 {
-	public interface IJugadorServices
+	public interface IPartidoServices
 	{
-		public Task<Response<Jugador>> GetPlayers();
-		public Task<Response<Jugador>> GetPlayer(string name);
-		public Task<Response<Jugador>> PostPlayer(string name);
-		public Task<Response<Jugador>> DeletePlayer(string name);
-		public Task<Response<Jugador>> PutEloboost(string name, float eloboost);
-		public Task<Response<Jugador>> PutWinRate(string name, int winRate);
+		public Task<Response<Partido>> GetMatches();
+		public Task<Response<Partido>> GetMatch(int id);
+		public Task<Response<Partido>> PostMatch(DateTime fecha, string cancha);
+		public Task<Response<Partido>> DeleteMatch(int id);/*
+		public Task<Response<Partido>> PutEloboost(string id, float eloboost);
+		public Task<Response<Partido>> PutWinRate(string id, int winRate);*/
 	}
 
-	public class JugadorServices : IJugadorServices
+	public class PartidoServices : IPartidoServices
     {
 
         private MatchamkingContext _context;
 
-        public JugadorServices(MatchamkingContext context)
+        public PartidoServices(MatchamkingContext context)
         {
             _context = context;
         }
 
-        public async Task<Response<Jugador>> GetPlayers()
+        public async Task<Response<Partido>> GetMatches()
         {
-	        var res = new Response<Jugador>();
+	        var res = new Response<Partido>();
 	        try
 	        {
-		        res.BodyResponseList = await _context.Jugadores.ToListAsync()
+		        res.BodyResponseList = await _context.Partidos.ToListAsync()
 		                               ?? throw new InvalidOperationException();
 		        res.StsCod = "200";
-		        res.StsMsg = "Jugador obtenido correctamente";
+		        res.StsMsg = "Partido obtenido correctamente";
 	        }
 	        catch (InvalidOperationException e)
 	        {
 		        res.StsCod = "500";
-		        res.StsMsg = "Jugador no encontrado";
+		        res.StsMsg = "Partido no encontrado";
 			}
 	        catch (Exception e)
 	        {
@@ -48,20 +48,20 @@ namespace backend.Services
 	        }
 			return res;
         }
-        public async Task<Response<Jugador>> GetPlayer(string name)
+        public async Task<Response<Partido>> GetMatch(int id)
         {
-	        var res = new Response<Jugador>();
+	        var res = new Response<Partido>();
 	        try
 	        {
-		        res.BodyResponseList.Add(await _context.Jugadores.FindAsync(name)
+		        res.BodyResponseList.Add(await _context.Partidos.FindAsync(id)
 		                                 ?? throw new InvalidOperationException());
 		        res.StsCod = "200";
-		        res.StsMsg = "Jugador obtenido correctamente";
+		        res.StsMsg = "Partido obtenido correctamente";
 			}
 	        catch (InvalidOperationException e)
 	        {
 				res.StsCod = "500";
-				res.StsMsg = "Jugador no encontrado";
+				res.StsMsg = "Partido no encontrado";
 			}
 	        catch (Exception e)
 	        {
@@ -71,15 +71,15 @@ namespace backend.Services
 			return res;
         }
 
-        public async Task<Response<Jugador>> PostPlayer(string nombreJugador)
+        public async Task<Response<Partido>> PostMatch(DateTime fecha, string cancha)
         {
-	        var res = new Response<Jugador>();
+	        var res = new Response<Partido>();
 	        try
 	        {
-		        var jugador = new Jugador(nombreJugador);
-		        await _context.Jugadores.AddAsync(jugador);
+		        var partido = new Partido(fecha, cancha);
+		        await _context.Partidos.AddAsync(partido);
 				res.StsCod = "200";
-		        res.StsMsg = "Jugador creado correctamente";
+		        res.StsMsg = "Partido creado correctamente";
 		        await _context.SaveChangesAsync();
 	        }
 			catch (Exception e)
@@ -90,22 +90,22 @@ namespace backend.Services
 	        return res;
         }
 
-        public async Task<Response<Jugador>> DeletePlayer(string name)
+        public async Task<Response<Partido>> DeleteMatch(int id)
         {
-	        var res = new Response<Jugador>();
+	        var res = new Response<Partido>();
 	        try
 	        {
-		        var jugador = await _context.Jugadores.FindAsync(name)
+		        var partido = await _context.Partidos.FindAsync(id)
 		                      ?? throw new InvalidOperationException();
-				_context.Jugadores.Remove(jugador);
+				_context.Partidos.Remove(partido);
 		        res.StsCod = "200";
-		        res.StsMsg = "Jugador eliminado correctamente";
+		        res.StsMsg = "Partido eliminado correctamente";
 		        await _context.SaveChangesAsync();
 			}
 	        catch (InvalidOperationException e)
 	        {
 		        res.StsCod = "500";
-		        res.StsMsg = "Jugador no encontrado";
+		        res.StsMsg = "Partido no encontrado";
 	        }
 	        catch (Exception e)
 	        {
@@ -114,22 +114,22 @@ namespace backend.Services
 	        }
 	        return res;
         }
-        public async Task<Response<Jugador>> PutEloboost(string name, float eloboost)
+        /*public async Task<Response<Partido>> PutEloboost(string id, float eloboost)
         {
-	        var res = new Response<Jugador>();
+	        var res = new Response<Partido>();
 	        try
 	        {
-		        var jugador = await _context.Jugadores.FindAsync(name)
+		        var partido = await Context.Partidos.FindAsync(id)
 		                      ?? throw new InvalidOperationException();
-		        jugador.Eloboost = eloboost;
+		        partido.Eloboost = eloboost;
 		        res.StsCod = "200";
-		        res.StsMsg = "Jugador eloboosteado correctamente xdxdxd";
-		        await _context.SaveChangesAsync();
+		        res.StsMsg = "Partido eloboosteado correctamente xdxdxd";
+		        await Context.SaveChangesAsync();
 	        }
 	        catch (InvalidOperationException e)
 	        {
 		        res.StsCod = "500";
-		        res.StsMsg = "Jugador no encontrado";
+		        res.StsMsg = "Partido no encontrado";
 	        }
 	        catch (Exception e)
 	        {
@@ -139,22 +139,22 @@ namespace backend.Services
 	        return res;
         }
 
-        public async Task<Response<Jugador>> PutWinRate(string name, int winRate)
+        public async Task<Response<Partido>> PutWinRate(string id, int winRate)
         {
-	        var res = new Response<Jugador>();
+	        var res = new Response<Partido>();
 	        try
 	        {
-		        var jugador = await _context.Jugadores.FindAsync(name)
+		        var partido = await Context.Partidos.FindAsync(id)
 		                      ?? throw new InvalidOperationException();
-		        jugador.WinRate = winRate;
+		        partido.WinRate = winRate;
 		        res.StsCod = "200";
-		        res.StsMsg = "Jugador modificado correctamente";
-		        await _context.SaveChangesAsync();
+		        res.StsMsg = "Partido modificado correctamente";
+		        await Context.SaveChangesAsync();
 	        }
 	        catch (InvalidOperationException e)
 	        {
 		        res.StsCod = "500";
-		        res.StsMsg = "Jugador no encontrado";
+		        res.StsMsg = "Partido no encontrado";
 	        }
 	        catch (Exception e)
 	        {
@@ -162,6 +162,6 @@ namespace backend.Services
 		        res.StsMsg = "algo salio mal xd";
 	        }
 	        return res;
-        }
+        }*/
 	}
 }
