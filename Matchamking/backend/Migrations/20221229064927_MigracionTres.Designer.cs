@@ -11,8 +11,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MatchamkingContext))]
-    [Migration("20221229041518_MigracionDos")]
-    partial class MigracionDos
+    [Migration("20221229064927_MigracionTres")]
+    partial class MigracionTres
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

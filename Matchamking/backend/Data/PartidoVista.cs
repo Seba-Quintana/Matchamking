@@ -4,7 +4,7 @@ namespace backend.Data
 {
 	public class PartidoVista
 	{
-		public List<Equipo> Equipos { get; set; }
+		public virtual List<Equipo> Equipos { get; set; }
 
 		public PartidoVista()
 		{
