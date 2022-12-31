@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1r7iOgQwhOtMkV1vstcBppy84mKGTzgPPc0wjwFLb1ceyTj4BFc6vSMUwMctQXi8UcxGtMHYUQe5DdRdsbM6Ew==",
+  "dgSpecHash": "RbhSmkd8h/JxUwwQvTkHaXNpRdizcHRFgswZdLzcl/uApqP7DVV9n0o+wfEFjZz9INRuqWmOoLnQ4V/ndQPvUg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Diekkan\\source\\repos\\Seba-Quintana\\Matchamking\\Matchamking\\backend\\backend.csproj",
+  "projectFilePath": "C:\\Users\\Diekkan\\Repos\\Matchamking\\Matchamking\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Diekkan\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Diekkan\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.0\\microsoft.aspnetcore.openapi.7.0.0.nupkg.sha512",

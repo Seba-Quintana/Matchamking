@@ -33,6 +33,7 @@ builder.Services.AddDbContext<MatchamkingContext>(options =>
 
 builder.Services.AddScoped<IJugadorServices, JugadorServices>();
 builder.Services.AddScoped<IPartidoServices, PartidoServices>();
+builder.Services.AddScoped<IEquipoServices, EquipoServices>();
 
 builder.Services.AddControllers();
 

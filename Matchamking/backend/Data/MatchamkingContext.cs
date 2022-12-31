@@ -13,14 +13,15 @@ namespace backend.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
-            modelBuilder.Entity<Equipo_Jugador>()
+            modelBuilder.Entity<EquipoJugador>()
                 .HasOne(e => e.Equipo)
-                .WithMany(ej => ej.Equipo_Jugadores)
+                .WithMany(ej => ej.EquipoJugadores)
                 .HasForeignKey(ei => ei.EquipoId);
-            modelBuilder.Entity<Equipo_Jugador>()
+            modelBuilder.Entity<EquipoJugador>()
                 .HasOne(j => j.Jugador)
-                .WithMany(ej => ej.Equipo_Jugadores)
+                .WithMany(ej => ej.EquipoJugadores)
                 .HasForeignKey(ji => ji.Nickname);
+
             modelBuilder.Entity<Equipo>()
                 .HasOne(p => p.Partido)
                 .WithMany(e => e.Equipos)
@@ -29,7 +30,7 @@ namespace backend.Data
 
         public DbSet<Jugador> Jugadores { get; set; }
 
-        public DbSet<Equipo_Jugador> Equipo_Jugadores{ get; set; }
+        public DbSet<EquipoJugador> EquipoJugadores { get; set; }
         public DbSet<Equipo> Equipos { get; set; }
         public DbSet<Partido> Partidos { get; set; }
 

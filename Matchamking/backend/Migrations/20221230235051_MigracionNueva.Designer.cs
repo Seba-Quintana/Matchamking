@@ -11,8 +11,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MatchamkingContext))]
-    [Migration("20221229064927_MigracionTres")]
-    partial class MigracionTres
+    [Migration("20221230235051_MigracionNueva")]
+    partial class MigracionNueva
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,9 +33,6 @@ namespace backend.Migrations
                     b.Property<int>("PartidoId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Suplentes")
-                        .HasColumnType("tinyint(1)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PartidoId");
@@ -43,7 +40,7 @@ namespace backend.Migrations
                     b.ToTable("Equipos");
                 });
 
-            modelBuilder.Entity("backend.Data.Models.Equipo_Jugador", b =>
+            modelBuilder.Entity("backend.Data.Models.EquipoJugador", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +59,7 @@ namespace backend.Migrations
 
                     b.HasIndex("Nickname");
 
-                    b.ToTable("Equipo_Jugadores");
+                    b.ToTable("EquipoJugadores");
                 });
 
             modelBuilder.Entity("backend.Data.Models.Jugador", b =>
@@ -137,16 +134,16 @@ namespace backend.Migrations
                     b.Navigation("Partido");
                 });
 
-            modelBuilder.Entity("backend.Data.Models.Equipo_Jugador", b =>
+            modelBuilder.Entity("backend.Data.Models.EquipoJugador", b =>
                 {
                     b.HasOne("backend.Data.Models.Equipo", "Equipo")
-                        .WithMany("Equipo_Jugadores")
+                        .WithMany("EquipoJugadores")
                         .HasForeignKey("EquipoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("backend.Data.Models.Jugador", "Jugador")
-                        .WithMany("Equipo_Jugadores")
+                        .WithMany("EquipoJugadores")
                         .HasForeignKey("Nickname")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -158,12 +155,12 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Data.Models.Equipo", b =>
                 {
-                    b.Navigation("Equipo_Jugadores");
+                    b.Navigation("EquipoJugadores");
                 });
 
             modelBuilder.Entity("backend.Data.Models.Jugador", b =>
                 {
-                    b.Navigation("Equipo_Jugadores");
+                    b.Navigation("EquipoJugadores");
                 });
 
             modelBuilder.Entity("backend.Data.Models.Partido", b =>

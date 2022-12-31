@@ -21,7 +21,10 @@ namespace backend.Data.Models
         public int GolesAFavor { get; set; }
         public int GolesEnContra { get; set; }
         public float Eloboost { get; set; }
-        public List<Equipo_Jugador> Equipo_Jugadores { get; set; }
+
+        public List<EquipoJugador> EquipoJugadores { get; set; }
+       // public List<EquipoJugador> EquipoJugadores { get; set; }
+
 
         public Jugador()
         {
@@ -40,7 +43,6 @@ namespace backend.Data.Models
             GolesAFavor = 0;
             GolesEnContra = 0;
             Eloboost = 0;
-            Equipo_Jugadores = new List<Equipo_Jugador>();
         }
 
     }

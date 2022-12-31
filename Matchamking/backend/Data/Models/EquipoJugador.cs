@@ -1,6 +1,6 @@
 ﻿namespace backend.Data.Models
 {
-    public class Equipo_Jugador
+    public class EquipoJugador
     {
         public int Id { get; set; }
 

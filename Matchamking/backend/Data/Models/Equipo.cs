@@ -7,21 +7,19 @@ namespace backend.Data.Models
 {
     public class Equipo
     {
+        [Key]
         public int Id { get; set; }
         public int Goles { get; set; }
-        public bool Suplentes { get; set; }
-
 
         public virtual int PartidoId { get; set; }
         public virtual Partido Partido { get; set; }
 
-        public List<Equipo_Jugador> Equipo_Jugadores { get; set; }
+        public List<EquipoJugador> EquipoJugadores { get; set; }
 
-		//public Equipo() { }
-		//public Equipo(int goles, bool suplentes, List<Jugador> jugadores)
-		//{
-		//    Goles = goles;
-		//    Suplentes = suplentes;
-		//}
+        public Equipo() { }
+        public Equipo(int partidoId)
+        {
+            PartidoId = partidoId;
+        }
 	}
 }
