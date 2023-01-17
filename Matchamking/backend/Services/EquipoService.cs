@@ -11,10 +11,11 @@ namespace backend.Services
 		public Task<Response<Equipo>> GetTeams();
 		public Task<Response<Equipo>> GetTeam(int id);
 		public Task<Response<Equipo>> PostTeam(int partidoId, List<string> nicknames);
-		/*
+        public Task<Response<Equipo>> DeleteTeam(int id);
+        /*
 		public Task<Response<Equipo>> PutEloboost(string id, float eloboost);
 		public Task<Response<Equipo>> PutWinRate(string id, int winRate);*/
-	}
+    }
 
 	public class EquipoServices : IEquipoServices
     {
@@ -55,11 +56,10 @@ namespace backend.Services
 	        {
 				var equipo = await _context.Equipos.FindAsync(id)
 										 ?? throw new InvalidOperationException();
-				var jugadoresLista = await _context.EquipoJugadores.ToListAsync();
-				jugadoresLista = jugadoresLista.Where(x => x.EquipoId == id);
-				var jugadores = new List<string>();
-		        res.BodyResponseList.Add(await _context.Equipos.FindAsync(id)
-		                                 ?? throw new InvalidOperationException());
+				IEnumerable<EquipoJugador> jugadoresLista = await _context.EquipoJugadores.ToListAsync();
+				IEnumerable<string> nicknameLista = jugadoresLista.Where(x => x.EquipoId == id).Select(b => b.Nickname);
+				equipo.Jugadores = nicknameLista;
+                res.BodyResponseList.Add(equipo);
 		        res.StsCod = "200";
 		        res.StsMsg = "Equipo obtenido correctamente";
 			}
@@ -82,15 +82,21 @@ namespace backend.Services
 	        try
 	        {
 				var jugadores = new List<Jugador>();
-				foreach(var nickname in nicknames)
+                var equipo = new Equipo(partidoId);
+                await _context.Equipos.AddAsync(equipo);
+                foreach (var nickname in nicknames)
 				{
 					var jugador = await _context.Jugadores.FindAsync(nickname)
 										?? throw new Exception();
 					jugadores.Add(jugador);
-				}
-		        var equipo = new Equipo(partidoId);
-				await _context.Equipos.AddAsync(equipo);
-				res.StsCod = "200";
+					var relacion = new EquipoJugador();
+					relacion.Equipo = equipo;
+					relacion.EquipoId = equipo.Id;
+					relacion.Nickname = nickname;
+					relacion.Jugador = jugador;
+                    await _context.EquipoJugadores.AddAsync(relacion);
+                }
+                res.StsCod = "200";
 		        res.StsMsg = "Equipo creado correctamente";
 		        await _context.SaveChangesAsync();
 	        }
@@ -109,7 +115,13 @@ namespace backend.Services
 		        var partido = await _context.Equipos.FindAsync(id)
 		                      ?? throw new InvalidOperationException();
 				_context.Equipos.Remove(partido);
-		        res.StsCod = "200";
+				var equipojugadores = await _context.EquipoJugadores.ToListAsync();
+				IEnumerable<EquipoJugador> deleterelaciones = 
+					from equipojugador in equipojugadores
+					where equipojugador.EquipoId == id
+					select equipojugador;
+				_context.EquipoJugadores.RemoveRange(deleterelaciones);
+				res.StsCod = "200";
 		        res.StsMsg = "Equipo eliminado correctamente";
 		        await _context.SaveChangesAsync();
 			}

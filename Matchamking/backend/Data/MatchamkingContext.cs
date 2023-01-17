@@ -17,6 +17,7 @@ namespace backend.Data
                 .HasOne(e => e.Equipo)
                 .WithMany(ej => ej.EquipoJugadores)
                 .HasForeignKey(ei => ei.EquipoId);
+
             modelBuilder.Entity<EquipoJugador>()
                 .HasOne(j => j.Jugador)
                 .WithMany(ej => ej.EquipoJugadores)
@@ -29,7 +30,6 @@ namespace backend.Data
         }
 
         public DbSet<Jugador> Jugadores { get; set; }
-
         public DbSet<EquipoJugador> EquipoJugadores { get; set; }
         public DbSet<Equipo> Equipos { get; set; }
         public DbSet<Partido> Partidos { get; set; }

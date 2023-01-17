@@ -13,7 +13,8 @@ namespace backend.Data.Models
 
         public virtual int PartidoId { get; set; }
         public virtual Partido Partido { get; set; }
-
+        [NotMapped]
+        public IEnumerable<string> Jugadores { get; set; }
         public List<EquipoJugador> EquipoJugadores { get; set; }
 
         public Equipo() { }

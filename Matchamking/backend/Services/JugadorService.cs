@@ -74,19 +74,14 @@ namespace backend.Services
         public async Task<Response<Jugador>> PostPlayer(string nombreJugador)
         {
 	        var res = new Response<Jugador>();
-	        try
-	        {
+
 		        var jugador = new Jugador(nombreJugador);
 		        await _context.Jugadores.AddAsync(jugador);
 				res.StsCod = "200";
 		        res.StsMsg = "Jugador creado correctamente";
 		        await _context.SaveChangesAsync();
-	        }
-			catch (Exception e)
-	        {
-		        res.StsCod = "500";
-		        res.StsMsg = "algo salio mal xd";
-	        }
+
+
 	        return res;
         }
 

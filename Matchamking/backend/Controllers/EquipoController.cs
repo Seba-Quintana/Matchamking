@@ -35,9 +35,13 @@ namespace backend.Controllers
 		{
 			return _equipoServices.PostTeam(partidoId, nicknames);
 		}
-
-		// DELETE api/<ValuesController>/5
-		/*
+        [HttpDelete]
+        public Task<Response<Equipo>> DeleteTeam([FromQuery]int id)
+        {
+            return _equipoServices.DeleteTeam(id);
+        }
+        // DELETE api/<ValuesController>/5
+        /*
 		// PUT api/<ValuesController>/5
 		[HttpPut]
 		public Task<Response<Equipo>> PutMatch([FromQuery] string id, [FromQuery] float eloboost)
@@ -45,5 +49,5 @@ namespace backend.Controllers
 			return _equipoServices.PutEloboost(id, eloboost);
 		}
 		*/
-	}
+    }
 }
