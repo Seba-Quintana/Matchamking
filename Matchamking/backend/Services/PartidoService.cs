@@ -12,7 +12,7 @@ namespace backend.Services
 		public Task<Response<Partido>> GetMatch(int id);
 		public Task<Response<Partido>> PostMatch(DateTime fecha, string cancha);
 		public Task<Response<Partido>> DeleteMatch(int id);/*
-		public Task<Response<Partido>> PutEloboost(string id, float eloboost);
+		public Task<Response<Partido>> PutGoals(string id, float eloboost);
 		public Task<Response<Partido>> PutWinRate(string id, int winRate);*/
 	}
 
@@ -70,7 +70,7 @@ namespace backend.Services
 	        }
 			return res;
         }
-
+              
         public async Task<Response<Partido>> PostMatch(DateTime fecha, string cancha)
         {
 	        var res = new Response<Partido>();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using backend.Data;
 using Microsoft.EntityFrameworkCore;
 using backend.Data.Models;
+using System.Xml.Linq;
 
 namespace backend.Services
 {
@@ -12,6 +13,8 @@ namespace backend.Services
 		public Task<Response<Equipo>> GetTeam(int id);
 		public Task<Response<Equipo>> PostTeam(int partidoId, List<string> nicknames);
         public Task<Response<Equipo>> DeleteTeam(int id);
+
+		public Task<Response<Equipo>> PutGoals(int id, int goles);
         /*
 		public Task<Response<Equipo>> PutEloboost(string id, float eloboost);
 		public Task<Response<Equipo>> PutWinRate(string id, int winRate);*/
@@ -137,6 +140,33 @@ namespace backend.Services
 	        }
 	        return res;
         }
+        public async Task<Response<Equipo>> PutGoals(int id, int goles)
+		{
+
+			var res = new Response<Equipo>();
+			try
+			{
+                var equipo = await _context.Equipos.FindAsync(id)
+							 ?? throw new InvalidOperationException();
+                equipo.Goles = goles;
+				await _context.SaveChangesAsync();
+                res.StsCod = "200";
+                res.StsMsg = "Equipo modificado correctamente";
+                await _context.SaveChangesAsync();
+            }
+            catch (InvalidOperationException e)
+            {
+                res.StsCod = "500";
+                res.StsMsg = "Equipo no encontrado";
+            }
+            catch (Exception e)
+            {
+                res.StsCod = "500";
+                res.StsMsg = "algo salio mal xd";
+            }
+            return res;
+
+        }
         /*public async Task<Response<Equipo>> PutEloboost(string id, float eloboost)
         {
 	        var res = new Response<Equipo>();
@@ -186,5 +216,5 @@ namespace backend.Services
 	        }
 	        return res;
         }*/
-	}
+    }
 }

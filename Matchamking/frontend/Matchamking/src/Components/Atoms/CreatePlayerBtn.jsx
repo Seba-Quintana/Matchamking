@@ -11,9 +11,9 @@ const Text = styled.div`
     margin-right: 1rem;
 `
 
-const CreatePlayerBtn = () => {
+const CreatePlayerBtn = (props) => {
   return (
-    <Button>
+    <Button onClick={props.onClick}>
         <Text>
             Crear
         </Text>

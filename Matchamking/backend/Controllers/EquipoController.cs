@@ -35,6 +35,13 @@ namespace backend.Controllers
 		{
 			return _equipoServices.PostTeam(partidoId, nicknames);
 		}
+
+        [HttpPut]
+        public Task<Response<Equipo>> PutGoals([FromQuery] int id, [FromBody] int goles)
+        {
+			return _equipoServices.PutGoals(id, goles);
+        }
+
         [HttpDelete]
         public Task<Response<Equipo>> DeleteTeam([FromQuery]int id)
         {
