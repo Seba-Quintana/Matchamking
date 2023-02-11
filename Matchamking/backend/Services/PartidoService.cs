@@ -11,18 +11,21 @@ namespace backend.Services
 		public Task<Response<Partido>> GetMatches();
 		public Task<Response<Partido>> GetMatch(int id);
 		public Task<Response<Partido>> PostMatch(DateTime fecha, string cancha);
-		public Task<Response<Partido>> DeleteMatch(int id);/*
+		public Task<Response<Partido>> DeleteMatch(int id);
+		public Task<Response<Partido>> EndMatch(int id1, int id2, int goles1, int goles2);
+		/*
 		public Task<Response<Partido>> PutGoals(string id, float eloboost);
 		public Task<Response<Partido>> PutWinRate(string id, int winRate);*/
 	}
 
 	public class PartidoServices : IPartidoServices
     {
-
+		private IEquipoServices _equipoServices;
         private MatchamkingContext _context;
 
-        public PartidoServices(MatchamkingContext context)
+        public PartidoServices(IEquipoServices equipoServices, MatchamkingContext context)
         {
+			_equipoServices = equipoServices;
             _context = context;
         }
 
@@ -113,7 +116,27 @@ namespace backend.Services
 		        res.StsMsg = "algo salio mal xd";
 	        }
 	        return res;
+
         }
+
+        public async Task<Response<Partido>> EndMatch(int id1, int id2, int goles1, int goles2)
+		{
+			var res = new Response<Partido>();
+
+			// insertar goles en ambos equipos
+
+			var equipo1 = await _equipoServices.PutGoals(id1, goles1);
+			var equipo2 = await _equipoServices.PutGoals(id2, goles2);
+			
+			if(goles1 > goles2)
+			{
+				
+			}
+			//
+
+
+            return res;
+		}
         /*public async Task<Response<Partido>> PutEloboost(string id, float eloboost)
         {
 	        var res = new Response<Partido>();
@@ -163,5 +186,5 @@ namespace backend.Services
 	        }
 	        return res;
         }*/
-	}
+    }
 }

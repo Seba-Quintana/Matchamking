@@ -4,6 +4,7 @@ import MiddleButtonStyle from './MiddleButtonStyle'
 
 const Button = styled(MiddleButtonStyle)`
     margin-top: 1rem;
+    cursor: pointer;
 `
 const Text = styled.div`
     font-family: 'Inter', sans-serif;

@@ -13,11 +13,12 @@ const StyledSearchBox = styled(StyledBox)`
     margin-top: 1rem;
     justify-content: flex-start;
 `
-const InputFieldPlayername = ({text, setPlayername}) => {
+const InputFieldPlayername = (props) => {
   return (
     <StyledSearchBox>
-        <StyledInput type='text' placeholder={text} onChange={ 
-          (ev) => {setPlayername(ev.target.value)}}
+        <StyledInput type='text' placeholder={props.text} onChange={(ev) => {
+          props.playername.setPlayername(ev.target.value)
+          }}
         ></StyledInput>
     </StyledSearchBox>
   )

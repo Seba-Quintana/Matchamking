@@ -13,7 +13,6 @@ namespace backend.Services
 		public Task<Response<Equipo>> GetTeam(int id);
 		public Task<Response<Equipo>> PostTeam(int partidoId, List<string> nicknames);
         public Task<Response<Equipo>> DeleteTeam(int id);
-
 		public Task<Response<Equipo>> PutGoals(int id, int goles);
         /*
 		public Task<Response<Equipo>> PutEloboost(string id, float eloboost);
@@ -148,10 +147,13 @@ namespace backend.Services
 			{
                 var equipo = await _context.Equipos.FindAsync(id)
 							 ?? throw new InvalidOperationException();
+				var EquipoLista = new List<Equipo>();
+				EquipoLista.Add(equipo);
                 equipo.Goles = goles;
 				await _context.SaveChangesAsync();
                 res.StsCod = "200";
                 res.StsMsg = "Equipo modificado correctamente";
+				res.BodyResponseList = EquipoLista;
                 await _context.SaveChangesAsync();
             }
             catch (InvalidOperationException e)
