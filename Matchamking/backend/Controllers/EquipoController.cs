@@ -17,7 +17,7 @@ namespace backend.Controllers
 
 		// GET api/<ValuesController>/5
 		[HttpGet("{id}")]
-		public Task<Response<Equipo>> GetMatch([FromQuery] int id)
+		public Task<Response<Equipo>> GetMatch(int id)
 		{
 			return _equipoServices.GetTeam(id);
 		}

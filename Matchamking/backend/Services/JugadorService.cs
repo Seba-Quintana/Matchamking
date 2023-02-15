@@ -14,9 +14,12 @@ namespace backend.Services
 		public Task<Response<Jugador>> DeletePlayer(string name);
 		public Task<Response<Jugador>> PutEloboost(string name, float eloboost);
 		public Task<Response<Jugador>> PutWinRate(string name, int winRate);
-	}
+		public Task<Jugador> UpdatePlayer(string name, Jugador jugador);
 
-	public class JugadorServices : IJugadorServices
+
+    }
+
+    public class JugadorServices : IJugadorServices
     {
 
         private MatchamkingContext _context;
@@ -158,5 +161,24 @@ namespace backend.Services
 	        }
 	        return res;
         }
-	}
+
+        public async Task<Jugador> UpdatePlayer(string name, Jugador jugador)
+        {
+            var res = new Response<Jugador>();
+            try
+            {
+                var jugadorACambiar = await _context.Jugadores.FindAsync(name)
+                              ?? throw new InvalidOperationException();
+				jugadorACambiar = jugador;
+                await _context.SaveChangesAsync();
+            }
+            catch (InvalidOperationException e)
+            {
+            }
+            catch (Exception e)
+            {
+            }
+            return jugador;
+        }
+    }
 }

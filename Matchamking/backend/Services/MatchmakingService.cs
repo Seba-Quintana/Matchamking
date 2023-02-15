@@ -5,9 +5,9 @@ namespace backend.Services
 {
     public interface IMatchmakingService
     {
-        public Response<List<Equipo>> CreateMatchmaking(List<string> jugadores);
+        public Task<Response<List<Equipo>>> CreateMatchmaking(List<string> jugadores);
     }
-    public class MatchmakingService: IMatchmakingService
+    public class MatchmakingServices: IMatchmakingService
     {
         private MatchamkingContext _context;
 

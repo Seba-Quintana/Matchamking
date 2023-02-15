@@ -37,7 +37,7 @@ namespace backend.Data.Models
 			Victorias = 0;
             Empates = 0;
             Derrotas = 0;
-            Elo = 0;
+            Elo = 50;
             Racha = 0;
             Resaca = false;
             GolesAFavor = 0;

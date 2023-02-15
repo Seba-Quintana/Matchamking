@@ -2,6 +2,7 @@ using backend.Controllers;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.Services;
+using backend.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ builder.Services.AddDbContext<MatchamkingContext>(options =>
 builder.Services.AddScoped<IJugadorServices, JugadorServices>();
 builder.Services.AddScoped<IPartidoServices, PartidoServices>();
 builder.Services.AddScoped<IEquipoServices, EquipoServices>();
+builder.Services.AddScoped<IEloServices, EloServices>();
 
 builder.Services.AddControllers();
 

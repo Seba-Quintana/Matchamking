@@ -58,9 +58,10 @@ namespace backend.Services
 	        {
 				var equipo = await _context.Equipos.FindAsync(id)
 										 ?? throw new InvalidOperationException();
-				IEnumerable<EquipoJugador> jugadoresLista = await _context.EquipoJugadores.ToListAsync();
-				IEnumerable<string> nicknameLista = jugadoresLista.Where(x => x.EquipoId == id).Select(b => b.Nickname);
-				equipo.Jugadores = nicknameLista;
+				List<EquipoJugador> jugadoresLista = await _context.EquipoJugadores.Where(j => j.EquipoId == id).ToListAsync();
+				//Console.WriteLine(jugadoresLista);
+				//IEnumerable<string> nicknameLista = jugadoresLista.Where(x => x.EquipoId == id).Select(b => b.Nickname);
+				equipo.EquipoJugadores = jugadoresLista;
                 res.BodyResponseList.Add(equipo);
 		        res.StsCod = "200";
 		        res.StsMsg = "Equipo obtenido correctamente";
@@ -169,6 +170,7 @@ namespace backend.Services
             return res;
 
         }
+
         /*public async Task<Response<Equipo>> PutEloboost(string id, float eloboost)
         {
 	        var res = new Response<Equipo>();

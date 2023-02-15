@@ -42,6 +42,12 @@ namespace backend.Controllers
 		{
 			return _partidoServices.DeleteMatch(id);
 		}
+
+		[HttpPost("{id}")]
+		public Task<Response<Partido>> EndMatch([FromQuery]int id, [FromQuery] int goles1, [FromQuery] int goles2)
+		{
+			return _partidoServices.EndMatch(id, goles1, goles2);
+		}
 		/*
 		// PUT api/<ValuesController>/5
 		[HttpPut]
